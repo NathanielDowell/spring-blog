@@ -12,24 +12,24 @@ public class PostController {
 
     @GetMapping("/posts")
     @ResponseBody
-    public String postsPlace() {return "posts index page";}
+    public String index() {return "posts index page";}
 
 
     @GetMapping("/posts/{id}")
     @ResponseBody
 
-    public String displayLonelyPost(@PathVariable long id) {return id + " view an individual post";}
+    public String show(@PathVariable long id) {return id + " view an individual post";}
 
 
     @GetMapping("/posts/create")
     @ResponseBody
 
-    public String displayPostCreationForm() {return "view the form for creating a post";}
+    public String create() {return "view the form for creating a post";}
 
 
     @PostMapping("/posts/create")
     @ResponseBody
 
-    public String createPost() {return "create a new post";}
+    public String insert() {return "create a new post";}
 
 }
