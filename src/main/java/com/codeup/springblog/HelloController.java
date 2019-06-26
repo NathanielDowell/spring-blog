@@ -33,7 +33,7 @@ public class HelloController {
                 return "Favorite num is: " + num;
             }
 
-            @RequestMapping(path = "/increment/{number}", method = RequestMethod.GET)
+            @RequestMapping(path = "/increment/{number}", method = RequestMethod.GET) //showing an older way of doing the same thing
             @ResponseBody
             public String addOne(@PathVariable int number) {
                 return  number + " plus 1 is " + (number + 1);
