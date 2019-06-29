@@ -1,6 +1,7 @@
-package com.codeup.springblog;
+package com.codeup.springblog.controller;
 
 
+import com.codeup.springblog.model.Post;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

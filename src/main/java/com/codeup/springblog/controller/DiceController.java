@@ -1,4 +1,4 @@
-package com.codeup.springblog;
+package com.codeup.springblog.controller;
 import java.util.Random;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

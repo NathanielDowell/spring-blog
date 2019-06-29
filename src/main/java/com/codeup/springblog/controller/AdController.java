@@ -1,11 +1,10 @@
-package com.codeup.springblog;
+package com.codeup.springblog.controller;
 
+import com.codeup.springblog.repository.AdRepository;
+import com.codeup.springblog.model.Ad;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 @Controller
 public class AdController {
@@ -23,6 +22,6 @@ public class AdController {
 //            return adsDao.findByTitleStartingWith(String str);
         }
 
-        @GetMapping("/ads-view")
-    private String index-view(Model model)
+//        @GetMapping("/ads-view")
+//    private String index-view(Model model)
 }
