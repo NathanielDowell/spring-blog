@@ -27,19 +27,16 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     @ResponseBody
-
     public String show(@PathVariable long id) {return id + " view an individual post";}
 
 
     @GetMapping("/posts/create")
     @ResponseBody
-
     public String create() {return "view the form for creating a post";}
 
 
     @PostMapping("/posts/create")
     @ResponseBody
-
     public String insert() {return "create a new post";}
 
 }
