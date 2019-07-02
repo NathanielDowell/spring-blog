@@ -2,6 +2,9 @@ package com.codeup.springblog.controller;
 
 
 import com.codeup.springblog.model.Post;
+import com.codeup.springblog.repository.PostRepository;
+import com.codeup.springblog.repository.UserRepository;
+import com.codeup.springblog.service.StringService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,10 +17,14 @@ import java.util.List;
 @Controller
 public class PostController {
 
-    private List<Post> getPosts() {
-        return Arrays.asList(
-                new Post()
-        );
+    private PostRepository postDao;
+    private UserRepository userDao;
+    private StringService strSvc;
+
+    public PostController(PostRepository postDao, UserRepository userDao, StringService strSvc) {
+        this.postDao = postDao;
+        this.userDao = userDao;
+        this.strSvc = strSvc;
     }
 
     @GetMapping("/posts")
@@ -38,5 +45,11 @@ public class PostController {
     @PostMapping("/posts/create")
     @ResponseBody
     public String insert() {return "create a new post";}
+
+    @GetMapping("/test-service")
+    @ResponseBody
+    public String testService(@PathVariable String str) {
+        return strSvc.returnInCaps(str);
+    }
 
 }
