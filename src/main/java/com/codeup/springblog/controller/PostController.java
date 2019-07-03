@@ -1,18 +1,13 @@
 package com.codeup.springblog.controller;
 
-
 import com.codeup.springblog.model.Post;
-import com.codeup.springblog.repository.PostRepository;
-import com.codeup.springblog.repository.UserRepository;
+import com.codeup.springblog.model.User;
+import com.codeup.springblog.repos.PostRepository;
+import com.codeup.springblog.repos.UserRepository;
 import com.codeup.springblog.service.StringService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Arrays;
-import java.util.List;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class PostController {
@@ -28,28 +23,57 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    @ResponseBody
-    public String index() {return "posts index page";}
-
+    public String index(Model model) {
+        model.addAttribute("posts", postDao.findAll());
+        return "posts/index";
+    }
 
     @GetMapping("/posts/{id}")
-    @ResponseBody
-    public String show(@PathVariable long id) {return id + " view an individual post";}
-
+    public String show(@PathVariable long id, Model model) {
+        model.addAttribute("post", postDao.findOne(id));
+        return "posts/show";
+    }
 
     @GetMapping("/posts/create")
-    @ResponseBody
-    public String create() {return "view the form for creating a post";}
-
+    public String create(Model model) {
+        model.addAttribute("post", new Post());
+        return "posts/create";
+    }
 
     @PostMapping("/posts/create")
-    @ResponseBody
-    public String insert() {return "create a new post";}
+    public String insert(@ModelAttribute Post post) {
+        User author = userDao.findOne(1L);
+        post.setAuthor(author);
+        postDao.save(post);
+        return "redirect:/posts";
+    }
 
-    @GetMapping("/test-service")
+    @GetMapping("/posts/{id}/edit")
+    public String edit(@PathVariable long id, Model model) {
+        model.addAttribute("post", postDao.findOne(id));
+        return "posts/edit";
+    }
+
+    @PostMapping("/posts/{id}/edit")
+    public String update(
+            @PathVariable long id,
+            @ModelAttribute Post post) {
+        post.setAuthor(postDao.findOne(id).getAuthor());
+        postDao.save(post);
+        return "redirect:/posts";
+    }
+
+    @PostMapping("/posts/{id}/delete")
+    public String delete(@PathVariable long id) {
+        postDao.delete(id);
+        return "redirect:/posts";
+    }
+
+    @GetMapping("/test-service/{str}")
     @ResponseBody
     public String testService(@PathVariable String str) {
         return strSvc.returnInCaps(str);
     }
+
 
 }

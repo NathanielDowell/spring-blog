@@ -1,45 +1,56 @@
 package com.codeup.springblog.controller;
 
-import com.codeup.springblog.repository.AdRepository;
 import com.codeup.springblog.model.Ad;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.codeup.springblog.repos.AdRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/ad")
 public class AdController {
 
-// Dependency injection, "manual way to do it":
-//    private final AdRepository adsDao;
-//
-//    public AdController(AdRepository adsDao) { //dependency injection (@Autowired is another)
-//        this.adsDao = adsDao;
-//    }
-
-    @Autowired
     private AdRepository adsDao;
 
-    //Create
-    @PostMapping(value = "/create")
-    public String getForm(Model model) {
-        model.addAttribute("Ad", new Ad());
+    public AdController(AdRepository adsDao) {
+        this.adsDao = adsDao;
+    }
+
+    @GetMapping("/ads")
+    @ResponseBody
+    private Iterable<String> index() {
+        return adsDao.getTitleWithGreatLengthNative();
+    }
 
 
+    @GetMapping("/ads-view")
+    private String indexView(Model model) {
+        model.addAttribute("ads", adsDao.findAll());
+        return "ads/index";
+    }
+
+    @GetMapping("/ads/create")
+    private String create() {
         return "ads/create";
     }
 
-    @GetMapping("/all")
-    @ResponseBody
-    public Iterable<Ad> index() {
-            return adsDao.findAll();
-//
-        }
+    @PostMapping("/ads/create")
+    private String insert(
+            @RequestParam String title,
+            @RequestParam String description,
+            @RequestParam int priceInCents) {
+        Ad adToInsert = new Ad(title, description, priceInCents);
+        adsDao.save(adToInsert);
+        return "redirect:/ads-view";
+    }
 
-//        @GetMapping("/ads-view")
-//    private String index-view(Model model)
+    @GetMapping("/ad-view-categories")
+    private String viewCategoriesOnAd(Model model) {
+        model.addAttribute("categories", adsDao.findOne(1L).getCategories());
+        return "ads/listOfCategories";
+    }
+
+
 }

@@ -1,29 +1,23 @@
 package com.codeup.springblog.model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name="posts")
+@Table(name = "posts")
 public class Post {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private long id;
 
-    @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
     private String body;
 
     @ManyToOne
-//    @JoinColumn (name = "user_id") this isn't necessary if we are fine with Spring managing it (i.e. not previously existing data set that we need to actively control)
     private User author;
 
-
     public Post() {
-
     }
 
     public Post(String title, String body) {
@@ -31,6 +25,17 @@ public class Post {
         this.body = body;
     }
 
+    public Post(String title, String body, User author) {
+        this.title = title;
+        this.body = body;
+        this.author = author;
+    }
+
+    public Post(long id, String title, String body) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+    }
 
     public long getId() {
         return id;
@@ -44,25 +49,23 @@ public class Post {
         return title;
     }
 
-    public String getBody() {
-        return body;
-    }
-
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getBody() {
+        return body;
     }
 
     public void setBody(String body) {
         this.body = body;
     }
 
-
-    @GetMapping("/posts/create")
-    public String showCreateForm() {
-        return "posts/create";
+    public User getAuthor() {
+        return author;
     }
 
-//    @PostMapping("/posts/create")
-//    public String create()
-
+    public void setAuthor(User author) {
+        this.author = author;
+    }
 }

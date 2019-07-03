@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
 public class User {
 
     @Id
@@ -14,25 +13,14 @@ public class User {
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false)
     private String password;
 
-    @Column(nullable=false, length = 255)
+    @Column(nullable = false)
     private String email;
 
-
-    @OneToMany (cascade = CascadeType.ALL, mappedBy = "author")
+    @OneToMany(mappedBy = "author")
     private List<Post> posts;
-
-
-    //G&S
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -57,5 +45,4 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
 }
