@@ -1,28 +1,71 @@
 package com.codeup.springblog.model;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name="ads")
+@Table(name = "ads")
 public class Ad {
 
-    @Id @GeneratedValue
-    private Long id;
+    @Id
+    @GeneratedValue
+    private long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 300)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable=false, length=1234)
     private String description;
 
-// Constructor not needed because Spring builds it for us
+    private int priceInCents;
 
-    // Getters and setters
+    @OneToOne
+    private User owner;
 
-    public Long getId() {
+    @OneToMany(mappedBy = "ad")
+    private List<AdImage> images;
+
+    @ManyToMany
+    private List<AdCategory> categories;
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public List<AdImage> getImages() {
+        return images;
+    }
+
+    public void setImages(List<AdImage> images) {
+        this.images = images;
+    }
+
+    public List<AdCategory> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<AdCategory> categories) {
+        this.categories = categories;
+    }
+
+    public Ad() {
+    }
+
+    public Ad(String title, String description, int priceInCents) {
+        this.title = title;
+        this.description = description;
+        this.priceInCents = priceInCents;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -40,5 +83,13 @@ public class Ad {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getPriceInCents() {
+        return priceInCents;
+    }
+
+    public void setPriceInCents(int priceInCents) {
+        this.priceInCents = priceInCents;
     }
 }
