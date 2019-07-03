@@ -19,8 +19,16 @@ public class User {
     @Column(nullable = false)
     private String email;
 
+
     @OneToMany(mappedBy = "author")
     private List<Post> posts;
+
+    public User(User copy) { //This is our copy constructor, which copies user attributes for use with other objects
+        id = copy.id;
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
+    }
 
     public String getUsername() {
         return username;
