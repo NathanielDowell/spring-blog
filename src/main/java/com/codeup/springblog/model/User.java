@@ -23,6 +23,9 @@ public class User {
     @OneToMany(mappedBy = "author")
     private List<Post> posts;
 
+    public User() {
+    }
+
     public User(User copy) { //This is our copy constructor, which copies user attributes for use with other objects
         id = copy.id;
         email = copy.email;
@@ -53,4 +56,6 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
 }

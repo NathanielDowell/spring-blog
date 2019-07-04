@@ -3,7 +3,7 @@ package com.codeup.springblog.service;
 import com.codeup.springblog.model.Post;
 import com.codeup.springblog.model.User;
 import com.codeup.springblog.repos.PostRepository;
-import com.codeup.springblog.repos.UserRepository;
+import com.codeup.springblog.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
