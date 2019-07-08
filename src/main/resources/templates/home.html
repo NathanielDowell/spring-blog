@@ -1,11 +1,15 @@
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8" />
-    <title>Welcome Home</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <body>
-<h1>Here is a Blog</h1>
-<p>Here is a paragraph.</p>
+    <container>
+        <header th:replace="partials/header :: header('Hot Diggety Blog')"></header>
+        <div th:replace="partials/navbar :: nav"></div>
+
+        <h1>Here is a Blog</h1>
+        <p>Here is a paragraph.</p>
+
+    </container>
 </body>
 </html>

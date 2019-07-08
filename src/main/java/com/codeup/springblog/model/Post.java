@@ -12,6 +12,7 @@ public class Post {
 
     private String title;
 
+    @Column(length = 5000)
     private String body;
 
     @ManyToOne
